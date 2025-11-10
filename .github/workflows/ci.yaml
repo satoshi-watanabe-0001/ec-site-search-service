@@ -1,0 +1,77 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main, develop, 'feature/**', 'bugfix/**']
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # 詳細な分析のための完全な履歴
+      
+      - name: Set up JDK ${JAVA_VERSION}
+        uses: actions/setup-java@v3
+        with:
+          java-version: '${JAVA_VERSION}'
+          distribution: 'temurin'
+          cache: 'gradle'
+      
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      
+      # ✅ 必須: Checkstyle実行
+      - name: Run Checkstyle
+        run: ./gradlew checkstyleMain checkstyleTest
+      
+      # ✅ 必須: Spotless Check実行（コードフォーマットチェック）
+      - name: Run Spotless Check
+        run: ./gradlew spotlessCheck
+      
+      # ✅ 必須: Build実行
+      - name: Build
+        run: ./gradlew build -x test
+      
+      # ✅ 必須: Test実行
+      - name: Run Tests
+        run: ./gradlew test
+      
+      # ✅ 必須: カバレッジ閾値検証（最重要）
+      - name: Verify Test Coverage
+        run: ./gradlew jacocoTestCoverageVerification
+      
+      # 🟡 推奨: カバレッジレポートの生成
+      - name: Generate Coverage Report
+        if: always()
+        run: ./gradlew jacocoTestReport
+      
+      # 🟡 推奨: カバレッジレポートのアップロード
+      - name: Upload Coverage Report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: build/reports/jacoco/test/html/
+      
+      # 🟡 推奨: テスト結果のアップロード
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: build/test-results/test/
+      
+      # 🟡 推奨: ビルドアーティファクトのアップロード
+      - name: Upload Build Artifacts
+        if: success()
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifacts
+          path: build/libs/
