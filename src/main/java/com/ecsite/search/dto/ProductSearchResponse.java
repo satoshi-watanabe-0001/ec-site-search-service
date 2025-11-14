@@ -9,7 +9,11 @@ import java.util.List;
 
 /**
  * 商品検索レスポンスDTO.
- * Product search response data transfer object
+ *
+ * <p>製品検索APIのレスポンスデータを保持します。
+ * 検索結果の製品リストとページネーション情報を含みます。</p>
+ *
+ * @since 1.0
  */
 @Data
 @Builder

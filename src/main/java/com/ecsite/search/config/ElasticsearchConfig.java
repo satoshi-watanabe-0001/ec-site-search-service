@@ -8,7 +8,11 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 
 /**
  * Elasticsearch設定クラス.
- * Elasticsearch configuration class
+ *
+ * <p>Elasticsearchクライアントの接続設定を管理します。
+ * ホスト、ポート、認証情報などを設定します。</p>
+ *
+ * @since 1.0
  */
 @Configuration
 @EnableElasticsearchRepositories(basePackages = "com.ecsite.search.repository")
@@ -23,6 +27,16 @@ public class ElasticsearchConfig extends ElasticsearchConfiguration {
     @Value("${spring.elasticsearch.password:}")
     private String password;
 
+    /**
+     * Elasticsearchクライアント設定を構築する.
+     *
+     * <p>application.ymlの設定値を使用して、
+     * Elasticsearchクライアントの接続設定を生成します。
+     * Basic認証が設定されている場合は認証情報を含めます。</p>
+     *
+     * @return クライアント設定
+     * @since 1.0
+     */
     @Override
     public ClientConfiguration clientConfiguration() {
         ClientConfiguration.MaybeSecureClientConfigurationBuilder builder =

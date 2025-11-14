@@ -13,7 +13,11 @@ import java.util.stream.Collectors;
 
 /**
  * グローバル例外ハンドラー.
- * Global exception handler
+ *
+ * <p>アプリケーション全体の例外を捕捉し、
+ * 統一されたエラーレスポンスを生成します。</p>
+ *
+ * @since 1.0
  */
 @Slf4j
 @RestControllerAdvice
@@ -21,10 +25,13 @@ public class GlobalExceptionHandler {
 
     /**
      * バリデーションエラーハンドラー.
-     * Validation error handler
      *
-     * @param ex MethodArgumentNotValidException
-     * @return ErrorResponse
+     * <p>Bean Validationによる入力検証エラーを処理し、
+     * フィールドごとのエラー情報を含むレスポンスを返します。</p>
+     *
+     * @param ex バリデーション例外
+     * @return エラーレスポンス（HTTP 400）
+     * @since 1.0
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidationException(
@@ -51,10 +58,13 @@ public class GlobalExceptionHandler {
 
     /**
      * 検索サービス例外ハンドラー.
-     * Search service exception handler
      *
-     * @param ex SearchServiceException
-     * @return ErrorResponse
+     * <p>検索処理中に発生したドメイン例外を処理し、
+     * エラーレスポンスを返します。</p>
+     *
+     * @param ex 検索サービス例外
+     * @return エラーレスポンス（HTTP 500）
+     * @since 1.0
      */
     @ExceptionHandler(SearchServiceException.class)
     public ResponseEntity<ErrorResponse> handleSearchServiceException(
@@ -72,10 +82,13 @@ public class GlobalExceptionHandler {
 
     /**
      * 一般例外ハンドラー.
-     * General exception handler
      *
-     * @param ex Exception
-     * @return ErrorResponse
+     * <p>予期しない例外を捕捉し、
+     * 汎用的なエラーレスポンスを返します。</p>
+     *
+     * @param ex 例外
+     * @return エラーレスポンス（HTTP 500）
+     * @since 1.0
      */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGeneralException(Exception ex) {

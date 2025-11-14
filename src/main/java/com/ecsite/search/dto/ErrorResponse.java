@@ -10,7 +10,11 @@ import java.util.List;
 
 /**
  * エラーレスポンスDTO.
- * Error response data transfer object
+ *
+ * <p>APIエラー時のレスポンスデータを保持します。
+ * エラーメッセージ、フィールドエラー、タイムスタンプを含みます。</p>
+ *
+ * @since 1.0
  */
 @Data
 @Builder
@@ -45,7 +49,11 @@ public class ErrorResponse {
 
     /**
      * フィールドエラー.
-     * Field error
+     *
+     * <p>バリデーションエラーの詳細情報を保持します。
+     * フィールド名とエラーメッセージを含みます。</p>
+     *
+     * @since 1.0
      */
     @Data
     @Builder

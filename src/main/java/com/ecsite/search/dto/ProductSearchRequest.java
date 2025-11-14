@@ -9,7 +9,11 @@ import lombok.NoArgsConstructor;
 
 /**
  * 商品検索リクエストDTO.
- * Product search request data transfer object
+ *
+ * <p>製品検索APIのリクエストパラメータを保持します。
+ * 検索クエリ、フィルタ条件、ページネーション情報を含みます。</p>
+ *
+ * @since 1.0
  */
 @Data
 @Builder

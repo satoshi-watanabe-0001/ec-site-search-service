@@ -7,7 +7,11 @@ import lombok.NoArgsConstructor;
 
 /**
  * 商品DTO.
- * Product data transfer object
+ *
+ * <p>製品情報を転送するためのデータ転送オブジェクトです。
+ * API応答やレイヤー間のデータ転送に使用します。</p>
+ *
+ * @since 1.0
  */
 @Data
 @Builder

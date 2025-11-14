@@ -22,7 +22,11 @@ import java.util.stream.Collectors;
 
 /**
  * Elasticsearch検索サービス.
- * Elasticsearch search service
+ *
+ * <p>Elasticsearch 8.xを使用した製品検索のビジネスロジックを提供します。
+ * クエリ構築、検索実行、結果マッピングを担当します。</p>
+ *
+ * @since 1.0
  */
 @Slf4j
 @Service
@@ -34,10 +38,13 @@ public class ElasticsearchService {
 
     /**
      * 商品を検索する.
-     * Search products
+     *
+     * <p>検索クエリ、カテゴリ、価格範囲、ページネーション情報に基づいて
+     * Elasticsearchから製品を検索します。</p>
      *
      * @param request 検索リクエスト
-     * @return 検索結果
+     * @return 検索結果とページネーション情報
+     * @since 1.0
      */
     public ProductSearchResponse searchProducts(ProductSearchRequest request) {
         try {

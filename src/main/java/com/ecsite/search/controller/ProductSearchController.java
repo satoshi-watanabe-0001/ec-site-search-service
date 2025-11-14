@@ -15,7 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 商品検索コントローラー.
- * Product search controller
+ *
+ * <p>製品検索APIのRESTエンドポイントを提供します。
+ * HTTP要求/応答処理、入力検証、サービス層への委譲を担当します。</p>
+ *
+ * @since 1.0
  */
 @Slf4j
 @RestController
@@ -28,10 +32,13 @@ public class ProductSearchController {
 
     /**
      * 商品を検索する.
-     * Search products
      *
-     * @param request 検索リクエスト
-     * @return 検索結果
+     * <p>クエリパラメータに基づいて製品を検索し、
+     * ページネーション付きの検索結果を返します。</p>
+     *
+     * @param request 検索リクエスト（クエリ、カテゴリ、価格範囲、ページ情報）
+     * @return 検索結果とページネーション情報
+     * @since 1.0
      */
     @GetMapping("/search")
     public ResponseEntity<ProductSearchResponse> searchProducts(
